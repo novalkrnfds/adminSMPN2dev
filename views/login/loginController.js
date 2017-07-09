@@ -1,7 +1,7 @@
 'use strict';
 
 app
-	.controller('LoginCtrl', function($scope, $http, $state, $cookies, toastr, $location){
+	.controller('LoginCtrl', function($scope, $http, $state, $cookies, toastr, $location, $mdDialog){
 
 		$scope.user = {};
 
@@ -46,10 +46,15 @@ app
         }
 
         $scope.logout = function(){
-            var keluar = confirm('Apakah anda yakin untuk keluar?');
-            if(keluar){
+            var confirm = $mdDialog.confirm()
+                .title('Anda yakin untuk keluar?')
+                .ariaLabel('Lucky day')
+                .ok('Yes')
+                .cancel('No');
+
+            $mdDialog.show(confirm).then(function() {  
                 $cookies.remove('currentUser');
                 $state.go('login');
-            }
+            })
         }
 	})
