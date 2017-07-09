@@ -1,0 +1,167 @@
+<div class="page page-products" ng-controller="PengaturanCtrl">
+
+  <div class="pageheader">
+
+    <h2>Manage Settings</h2>
+
+    <div class="page-bar">
+
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i> SMPN 2 Sungai Penuh</a>
+        </li>
+        <li>
+          <a ui-sref="app.products.list">Manage Settings</a>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+
+  <!-- row -->
+  <div class="row">
+
+    <script type="text/ng-template" id="myModalContent.html">
+      <div class="modal-header">
+        <h3 class="modal-title custom-font">Add Settings</h3>
+      </div>
+      <div class="modal-body">
+
+        
+        <div class="form-group" ">
+          <label for="message">Alamat: </label>
+          <textarea style="resize: none;" class="form-control" rows="3" name="message" id="message" placeholder="Alamat Sekolah" ng-model="user.message"  on-blur-validation required></textarea>
+          <p class="help-block">
+            <span ng-show="contactForm.message.$invalid && !contactForm.message.$pristine || contactForm.message.$invalid && submitted">Message is required.</span>
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="contactemail">No. Telepon : </label>
+          <input type="text" name="contactemail" id="contactemail" placeholder="No. Telepon" class="form-control" ng-model="user.contactemail" required on-blur-validation>
+          <p class="help-block">
+            <span ng-show="contactForm.contactemail.$invalid && !contactForm.contactemail.$pristine || contactForm.contactemail.$invalid && submitted">Email in bad format.</span>
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="contactemail">Email: </label>
+          <input type="email" name="contactemail" id="contactemail" placeholder="Email" class="form-control" ng-model="user.contactemail" required on-blur-validation>
+          <p class="help-block">
+            <span ng-show="contactForm.contactemail.$invalid && !contactForm.contactemail.$pristine || contactForm.contactemail.$invalid && submitted">Email in bad format.</span>
+          </p>
+        </div>
+
+        <div class="form-group" >
+          <label for="website">Youtube : </label>
+          <input type="text" name="website" id="website" class="form-control" ng-model="user.website" placeholder="http://" ng-pattern="/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/" on-blur-validation>
+          <p class="help-block">
+            <span ng-show="contactForm.website.$invalid && !contactForm.website.$pristine || contactForm.website.$invalid && submitted">Website in bad format.</span>
+          </p>
+        </div>
+
+        <div class="form-group" >
+          <label for="website">Twitter: </label>
+          <input type="text" name="website" id="website" class="form-control" ng-model="user.website" placeholder="http://" ng-pattern="/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/" on-blur-validation>
+          <p class="help-block">
+            <span ng-show="contactForm.website.$invalid && !contactForm.website.$pristine || contactForm.website.$invalid && submitted">Website in bad format.</span>
+          </p>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success btn-rounded btn-ef btn-ef-5 btn-ef-5a" ng-click="save()" ng-disabled="form.$invalid"><i class="fa fa-save"></i> <span>&nbsp;Simpan&nbsp;</span></button>
+        <button ng-click="cancel()" class="btn btn-lightred btn-rounded btn-ef btn-ef-4 btn-ef-4c"><i class="fa fa-arrow-left"></i> Batal</button>
+      </div>
+    </script>
+
+    <div class="col-md-12">
+
+      <!-- tile -->
+      <section class="tile" fullscreen="isFullscreen01">
+
+        <!-- tile header -->
+        <div class="tile-header dvd dvd-btm">
+          <h1 class="custom-font"><strong>Manage </strong>Settings</h1>
+          <ul class="controls">
+
+              <li><a style="cursor: pointer;" ng-click="openSplash($event)" data-options="splash-2 splash-ef-9" ><i class="fa fa-plus mr-5"></i> Add Settings</a></li>
+
+          </ul>
+        </div>
+        <!-- /tile header -->
+
+        <!-- tile body -->
+        <div class="tile-body">
+
+
+          <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+              <input type="text" class="form-control underline-input w-md pull-right mb-20" placeholder="Search..." ng-model="searchKeywords" ng-keyup="search()">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table ng-table="tableParams" class="table table-custom">
+              <tr ng-repeat="item in currentPageData">
+                <td data-title="'No'">
+                  {{no + $index}}
+                </td>
+                <td data-title="'Alamat Sekolah'" sortable="''">
+                  <a ui-sref="app.pengaturan.show({ id: item.ID_PENGATURAN })">{{item.ALAMAT}}</a>
+                </td>
+                <td data-title="'Telepon'" sortable="''">
+                  {{item.TELP}}
+                </td>
+                <td data-title="'Email'" sortable="''">
+                  {{item.EMAIL}}
+                </td>
+                <td data-title="'Actions'" class="actions">
+                  <a href class="text-success text-uppercase text-strong text-sm mr-10" ui-sref="app.pengaturan.edit({id : item.ID_Pengaturan})">Edit</a>
+                  <a href class="text-danger text-uppercase text-strong text-sm mr-10" ng-click="delete(item.ID_Pengaturan)">Delete</a>
+                </td>
+
+              </tr>
+            </table>
+            <br>
+                <div class="row">
+                <div class="col-md-6">
+                    <label>
+                    Show 
+                    <select data-ng-model="numPerPage"
+                        data-ng-options="num for num in numPerPageOpt"
+                        data-ng-change="onNumPerPageChange()">
+                    </select> 
+                    entries per page
+                    </label>
+                </div>
+                <div class="col-md-6 text-right">
+                    <uib-pagination class="pagination-sm"
+                        ng-model="currentPage"
+                        total-items="filteredData.length"
+                        max-size="4"
+                        ng-change="select(currentPage)"
+                        items-per-page="numPerPage"
+                        rotate="false"
+                        previous-text="&lsaquo;" next-text="&rsaquo;"
+                        boundary-links="true"></uib-pagination>
+                </div>
+                </div>
+
+          </div>
+
+
+        </div>
+        <!-- /tile body -->
+
+      </section>
+      <!-- /tile -->
+
+    </div>
+
+  </div>
+  <!-- /row -->
+
+</div>
