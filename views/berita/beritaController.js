@@ -224,3 +224,30 @@ app
 		$scope.formLoad();
 		$scope.renderCb();
 	})
+
+    .controller('BeritaShowCtrl', function($scope, $state, $http, $cookies, $stateParams, toastr){
+        var stateId = $stateParams.id;
+        $scope.data = {}
+
+		$scope.formLoad = function(){
+			$http.post('/file/v1/api/GetBeritaById.php', {id:stateId})
+			.then(function (response){
+
+				var dt = angular.copy(response.data.DATA).map(function (item){ 
+                    return {
+                        id : item.ID,
+                        judulBerita : item.JUDUL,
+                        isiBerita : item.BODY,
+                        gambar : item.GAMBAR,
+                        status : item.STATUS,
+                        tipe : item.TIPE,
+                        dibuat : item.DIBUAT,
+                        diubah : item.UBAH,
+                        id_user : item.id_user
+                    }
+                })
+
+                $scope.data = dt[0];
+			})
+		}
+    })

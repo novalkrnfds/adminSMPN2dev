@@ -1,6 +1,6 @@
-<div class="page page-products" ng-controller="BeritaEditCtrl">
+<div class="page page-products" ng-controller="PengumumanShowCtrl">
   <div class="pageheader">
-    <h2>Add Berita</h2>
+    <h2>Detail Berita</h2>
 
     <div class="page-bar">
 
@@ -9,10 +9,10 @@
           <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{main.title}}</a>
         </li>
         <li>
-          <a ui-sref="app.berita.list">Manage Berita</a>
+          <a ui-sref="app.pengumuman.list">Manage Pengumuman</a>
         </li>
         <li>
-          <a ui-sref="app.berita.edit">Edit Berita</a>
+          <a ui-sref="app.pengumuman.show">Detail Pengumuman</a>
         </li>
       </ul>
 
@@ -31,8 +31,8 @@
 
 
         <!-- tile body -->
-        <div class="tile-body" ng-include="'views/berita/_form.html'">
-
+        <div class="tile-body">
+            
 
         </div>
         <!-- /tile body -->
@@ -45,7 +45,4 @@
 
   </div>
   <!-- /row -->
-
 </div>
-
-

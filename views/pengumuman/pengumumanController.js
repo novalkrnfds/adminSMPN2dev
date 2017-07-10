@@ -204,3 +204,26 @@ app
 
 		$scope.formLoad();
 	})
+
+    .controller('PengumumanShowCtrl', function($scope, $state, $http, $cookies, $stateParams, toastr){
+        var stateId = $stateParams.id;
+        $scope.data = {}
+
+		$scope.formLoad = function(){
+			$http.post('/file/v1/api/GetPengumumanById.php', {id:stateId})
+			.then(function (response){
+
+				var dt = angular.copy(response.data.DATA).map(function (item){ 
+                    return {
+                        id_pengumuman : item.ID_PENGUMUMAN,
+                        judul : item.JUDUL,
+                        isi : item.ISI,
+                        dari : item.DARI,
+                        sampai : item.SAMPAI
+                    }
+                })
+
+                $scope.data = dt[0];
+			})
+		}
+    })
