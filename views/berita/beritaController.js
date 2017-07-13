@@ -131,14 +131,18 @@ app
 		$scope.formLoad();
 	})
 
-	.controller('BeritaAddCtrl', function($scope, $http, $cookies, toastr, $stateParams, $state){
-		
+	.controller('BeritaAddCtrl', function($scope, $http, $cookies, toastr, $stateParams, $state, FileUploader){
+        
+        var uploader = $scope.uploader = new FileUploader({
+            //url: 'scripts/modules/fileupload/upload.php' //enable this option to get f
+        });
+
 		$scope.cb = {}
 		$scope.data = {
 			id : null,
 			judulBerita : "",
 			isiBerita : "",
-			gambar : "",
+			gambar : null,
 			tipe : "",
 			status : "",
 			id_user : ""
@@ -165,8 +169,8 @@ app
 			.catch(function (e){
 				toastr.error(e, 'Error!', 5000);
 			})
-		}
-
+        }
+        
 		$scope.renderCb();
 	})
 

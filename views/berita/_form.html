@@ -41,11 +41,11 @@
   </div>
 
   <div class="form-group">
-    <label class="control-label col-sm-2">Images</label>
+    <label class="control-label col-sm-2">Gambar</label>
     <div class="col-sm-9">
-
-      <p class="help-block text-danger" ng-show="editing">Adding new images will rewrite actual images!</p>
-      <img src="data:image/jpeg;base64,{{data.gambar}}" width="200px">
+      <input type="file" fileread="data.gambar" />
+      <br>
+      <img src="{{data.gambar}}" ng-hide="data.gambar == null" width="30%">
 
     </div>
   </div>
