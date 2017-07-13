@@ -83,11 +83,6 @@ app
 			})
 		}
 
-		$scope.save = function(){
-        	console.log(JSON.stringify($scope.data));
-
-		}
-
 		$scope.delete = function(idBerita){
 
             var confirm = $mdDialog.confirm()
@@ -131,12 +126,8 @@ app
 		$scope.formLoad();
 	})
 
-	.controller('BeritaAddCtrl', function($scope, $http, $cookies, toastr, $stateParams, $state, FileUploader){
+	.controller('BeritaAddCtrl', function($scope, $http, $cookies, toastr, $stateParams, $state){
         
-        var uploader = $scope.uploader = new FileUploader({
-            //url: 'scripts/modules/fileupload/upload.php' //enable this option to get f
-        });
-
 		$scope.cb = {}
 		$scope.data = {
 			id : null,
@@ -146,7 +137,7 @@ app
 			tipe : "",
 			status : "",
 			id_user : ""
-		}
+        }
 
 		$scope.renderCb = function(){
 			$scope.cb.status = ["Published", "Not Published"];

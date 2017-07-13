@@ -90,13 +90,27 @@ app
     .state('app.berita.new', {
       url: '/new',
       templateUrl: 'views/berita/new.html',
-      authRequired: true
+      authRequired: true,
+      resolve: {
+        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            'scripts/vendor/filestyle/bootstrap-filestyle.min.js'
+          ]);
+        }]
+      }
     })
     //berita/edit
     .state('app.berita.edit', {
       url: '/edit/:id',
       templateUrl: 'views/berita/edit.html',
-      authRequired: true
+      authRequired: true,
+      resolve: {
+        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            'scripts/vendor/filestyle/bootstrap-filestyle.min.js'
+          ]);
+        }]
+      }
     })
     //berita/show
     .state('app.berita.show', {
@@ -137,7 +151,56 @@ app
       authRequired: true
     })
 
-    //pengumuman
+    //gallery
+    .state('app.gallery', {
+      abstract: true,
+      url: '/gallery',
+      template: '<div ui-view></div>',
+      authRequired: true
+    })
+    //gallery/list
+    .state('app.gallery.list', {
+      url: '/list',
+      templateUrl: 'views/gallery/list.html',
+      authRequired: true,
+      resolve: {
+        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            'scripts/vendor/mixitup/jquery.mixitup.js',
+            'scripts/vendor/magnific/magnific-popup.css',
+            'scripts/vendor/magnific/jquery.magnific-popup.min.js'
+          ]);
+        }]
+      }
+    })
+    //gallery/new
+    .state('app.gallery.new', {
+      url: '/new',
+      templateUrl: 'views/gallery/new.html',
+      authRequired: true,
+      resolve: {
+        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            'scripts/vendor/filestyle/bootstrap-filestyle.min.js'
+          ]);
+        }]
+      }
+    })
+    //gallery/edit
+    .state('app.gallery.edit', {
+      url: '/edit/:id',
+      templateUrl: 'views/gallery/edit.html',
+      authRequired: true,
+      resolve: {
+        plugins: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load([
+            'scripts/vendor/filestyle/bootstrap-filestyle.min.js'
+          ]);
+        }]
+      }
+    })
+
+    //pengaturan
     .state('app.pengaturan', {
       abstract: true,
       url: '/pengaturan',
