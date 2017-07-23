@@ -22,59 +22,6 @@
   <!-- row -->
   <div class="row">
 
-    <script type="text/ng-template" id="myModalContent.html">
-      <div class="modal-header">
-        <h3 class="modal-title custom-font">Add Settings</h3>
-      </div>
-      <div class="modal-body">
-
-        
-        <div class="form-group" ">
-          <label for="message">Alamat: </label>
-          <textarea style="resize: none;" class="form-control" rows="3" name="message" id="message" placeholder="Alamat Sekolah" ng-model="user.message"  on-blur-validation required></textarea>
-          <p class="help-block">
-            <span ng-show="contactForm.message.$invalid && !contactForm.message.$pristine || contactForm.message.$invalid && submitted">Message is required.</span>
-          </p>
-        </div>
-
-        <div class="form-group">
-          <label for="contactemail">No. Telepon : </label>
-          <input type="text" name="contactemail" id="contactemail" placeholder="No. Telepon" class="form-control" ng-model="user.contactemail" required on-blur-validation>
-          <p class="help-block">
-            <span ng-show="contactForm.contactemail.$invalid && !contactForm.contactemail.$pristine || contactForm.contactemail.$invalid && submitted">Email in bad format.</span>
-          </p>
-        </div>
-
-        <div class="form-group">
-          <label for="contactemail">Email: </label>
-          <input type="email" name="contactemail" id="contactemail" placeholder="Email" class="form-control" ng-model="user.contactemail" required on-blur-validation>
-          <p class="help-block">
-            <span ng-show="contactForm.contactemail.$invalid && !contactForm.contactemail.$pristine || contactForm.contactemail.$invalid && submitted">Email in bad format.</span>
-          </p>
-        </div>
-
-        <div class="form-group" >
-          <label for="website">Youtube : </label>
-          <input type="text" name="website" id="website" class="form-control" ng-model="user.website" placeholder="http://" ng-pattern="/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/" on-blur-validation>
-          <p class="help-block">
-            <span ng-show="contactForm.website.$invalid && !contactForm.website.$pristine || contactForm.website.$invalid && submitted">Website in bad format.</span>
-          </p>
-        </div>
-
-        <div class="form-group" >
-          <label for="website">Twitter: </label>
-          <input type="text" name="website" id="website" class="form-control" ng-model="user.website" placeholder="http://" ng-pattern="/(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/" on-blur-validation>
-          <p class="help-block">
-            <span ng-show="contactForm.website.$invalid && !contactForm.website.$pristine || contactForm.website.$invalid && submitted">Website in bad format.</span>
-          </p>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-success btn-rounded btn-ef btn-ef-5 btn-ef-5a" ng-click="save()" ng-disabled="form.$invalid"><i class="fa fa-save"></i> <span>&nbsp;Simpan&nbsp;</span></button>
-        <button ng-click="cancel()" class="btn btn-lightred btn-rounded btn-ef btn-ef-4 btn-ef-4c"><i class="fa fa-arrow-left"></i> Batal</button>
-      </div>
-    </script>
 
     <div class="col-md-12">
 
@@ -86,7 +33,7 @@
           <h1 class="custom-font"><strong>Manage </strong>Settings</h1>
           <ul class="controls">
 
-              <li><a style="cursor: pointer;" ng-click="openSplash($event)" data-options="splash-2 splash-ef-9" ><i class="fa fa-plus mr-5"></i> Add Settings</a></li>
+              <li><a ui-sref="app.pengaturan.new" ><i class="fa fa-plus mr-5"></i> Add Setting</a></li>
 
           </ul>
         </div>
@@ -119,8 +66,8 @@
                   {{item.EMAIL}}
                 </td>
                 <td data-title="'Actions'" class="actions">
-                  <a href class="text-success text-uppercase text-strong text-sm mr-10" ui-sref="app.pengaturan.edit({id : item.ID_Pengaturan})">Edit</a>
-                  <a href class="text-danger text-uppercase text-strong text-sm mr-10" ng-click="delete(item.ID_Pengaturan)">Delete</a>
+                  <a href class="text-success text-uppercase text-strong text-sm mr-10" ui-sref="app.pengaturan.edit({id : item.ID_PENGATURAN})">Edit</a>
+                  <a href class="text-danger text-uppercase text-strong text-sm mr-10" ng-click="delete(item.ID_PENGATURAN)">Delete</a>
                 </td>
 
               </tr>

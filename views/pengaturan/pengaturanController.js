@@ -83,19 +83,19 @@ app
 			})
 		}
 
-		$scope.delete = function(idBerita){
+		$scope.delete = function(idpengaturan){
 
             var confirm = $mdDialog.confirm()
                         .title('Are you sure to delete this data?')
                         .content('Data yang dihapus tidak dapat bisa dikembalikan')
                         .ariaLabel('Lucky day')
-                        .targetEvent(idBerita)
+                        .targetEvent(idpengaturan)
                         .ok('Yes')
                         .cancel('No');
 
             $mdDialog.show(confirm).then(function() {
             
-                $http.post('/file/v1/api/HapusBerita.php', {id:idBerita})
+                $http.post('/file/v1/api/HapusPengaturan.php', {id_pengaturan:idpengaturan})
                 .then(function(response){      
                     $scope.formLoad();
                     $mdDialog.show(
@@ -152,31 +152,23 @@ app
 
 	.controller('PengaturanAddCtrl', function($scope, $http, $cookies, toastr, $stateParams, $state){
 		
-		$scope.cb = {}
 		$scope.data = {
-			id : null,
-			judulBerita : "",
-			isiBerita : "",
-			gambar : "",
-			tipe : "",
-			status : "",
-			id_user : ""
-		}
-
-		$scope.renderCb = function(){
-			$scope.cb.status = ["Published", "Not Published"];
-
-            $scope.cb.tipe = ["Pendidikan", "Politik", "Other"];
+			id_pengaturan : null,
+			alamat : "",
+			telp : "",
+			twitter : "",
+			youtube : "",
+			email : "",
 		}
 
 		$scope.save = function(){
-			$http.post('/file/v1/api/InsertBerita.php', $scope.data)
+			$http.post('/file/v1/api/InsertPengaturan.php', $scope.data)
 			.then(function (response){
 				if(response.data.CODE == "0"){
 					
 					toastr.success('Simpan data sukses', response.data.DESC, 5000);
 					
-					$state.go('app.berita.list');
+					$state.go('app.pengaturan.list');
 				} else {
 					toastr.error(response.data.DESC, "Error!", 5000);
 				}
@@ -186,29 +178,24 @@ app
 			})
 		}
 
-		$scope.renderCb();
 	})
 
-	.controller('BeritaEditCtrl', function($scope, $http, $cookies, toastr, $stateParams, $state){
+	.controller('PengaturanEditCtrl', function($scope, $http, $cookies, toastr, $stateParams, $state){
 		var stateId = $stateParams.id;
 		$scope.data = {}
-		$scope.cb = {}
 
 		$scope.formLoad = function(){
-			$http.post('/file/v1/api/GetBeritaById.php', {id:stateId})
+			$http.post('/file/v1/api/GetPengaturanById.php', {id_pengaturan:stateId})
 			.then(function (response){
 
 				var dt = angular.copy(response.data.DATA).map(function (item){ 
                     return {
-                        id : item.ID,
-                        judulBerita : item.JUDUL,
-                        isiBerita : item.BODY,
-                        gambar : item.GAMBAR,
-                        status : item.STATUS,
-                        tipe : item.TIPE,
-                        dibuat : item.DIBUAT,
-                        diubah : item.UBAH,
-                        id_user : item.id_user
+                        id_pengaturan : item.ID_PENGATURAN,
+                        alamat : item.ALAMAT,
+                        telp : item.TELP,
+                        twitter : item.TWITTER,
+                        youtube : item.YOUTUBE,
+                        email : item.EMAIL,
                     }
                 })
 
@@ -216,21 +203,15 @@ app
 			})
 		}
 
-		$scope.renderCb = function(){
-			$scope.cb.status = ["Published", "Not Published"];
-
-            $scope.cb.tipe = ["Pendidikan", "Politik", "Other"];
-		}
-
 		$scope.save = function(){
 
-			$http.post('/file/v1/api/InsertBerita.php', $scope.data)
+			$http.post('/file/v1/api/InsertPengaturan.php', $scope.data)
 			.then(function (response){
 				if(response.data.CODE == "0"){
 					
 					toastr.success('Update data sukses', response.data.DESC, 5000);
 					
-					$state.go('app.berita.list');
+					$state.go('app.pengaturan.list');
 				} else {
 					toastr.error(response.data.DESC, "Error!", 5000);
 				}
@@ -241,5 +222,28 @@ app
 		}
 
 		$scope.formLoad();
-		$scope.renderCb();
 	})
+	
+	.controller('PengaturanShowCtrl', function($scope, $state, $http, $cookies, $stateParams, toastr){
+        var stateId = $stateParams.id;
+        $scope.data = {}
+
+		$scope.formLoad = function(){
+			$http.post('/file/v1/api/GetPengaturanById.php', {id_pengaturan:stateId})
+			.then(function (response){
+
+				var dt = angular.copy(response.data.DATA).map(function (item){ 
+                    return {
+                        id_pengaturan : item.ID_PENGATURAN,
+                        alamat : item.ALAMAT,
+                        telp : item.TELP,
+                        twitter : item.TWITTER,
+                        youtube : item.YOUTUBE,
+                        email : item.EMAIL,
+                    }
+                })
+
+                $scope.data = dt[0];
+			})
+		}
+    })
